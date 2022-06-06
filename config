@@ -182,13 +182,16 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 #keyboard layout
-exec --no-startup-id "setxkbmap -model pc87 -layout fi -option grp:alt_shift_toggle"
+exec_always "setxkbmap -model pc104 -layout fi -variant ,, -option grp:alt_shift_toggle"
 
 #refresh rate
 exec --no-startup-id xrandr -s 1920x1080 -r 100
 
 #start compositor
-exec --no-startup-id picom --config ~/.config/picom.conf -b
+exec_always --no-startup-id picom --config ~/.config/picom.conf -b
+
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 
 #autotiling
 exec_always --no-startup-id autotiling
@@ -197,7 +200,7 @@ exec_always --no-startup-id autotiling
 exec --no-startup-id corectrl
 
 #torguard
-exec --no-startup-id /opt/torguard/bin/torguard-startup.desktop
+exec --no-startup-id sudo torguard
 
 #nitrogen
 exec --no-startup-id nitrogen --restore &
@@ -207,6 +210,9 @@ smart_gaps on
 smart_borders on
 gaps inner 10
 gaps outer 0
+
+# Amount to increase/decrease volume as a percentage
+set $volumestep 5
 
 # You can also use any non-zero value if you'd like to have a border
 for_window [class=".*"] border pixel 0
